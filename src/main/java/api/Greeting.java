@@ -1,4 +1,4 @@
-package hello;
+package api;
 
 public class Greeting {
 

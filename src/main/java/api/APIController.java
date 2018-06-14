@@ -1,8 +1,6 @@
-package hello;
+package api;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.sun.javafx.font.PrismFontFactory.isWindows;
 
 @RestController
-public class GreetingController {
+public class APIController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -28,7 +26,7 @@ public class GreetingController {
     */
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
-    public String getHTTPBody(@RequestBody String request) {
+    public Object getHTTPBody(@RequestBody String request) {
         JSONObject data;
         String action;
         try {
@@ -46,16 +44,17 @@ public class GreetingController {
                     if (isWindows) {
                         builder.command("cmd.exe", "/c", "dir");
                     } else {
-                        builder.command("sh", "-c", "echo somepassword | sudo -S cat /var/log/syslog");
+                        builder.command("sh", "-c", "echo somePassword | sudo -S cat /var/log/syslog");
                     }
                     builder.directory(new File(System.getProperty("user.home")));
                     Process process = builder.start();
-                    StreamGobbler streamGobbler =
-                            new StreamGobbler(process.getInputStream(), System.out::println);
-                    Executors.newSingleThreadExecutor().submit(streamGobbler);
+                    InputStream stream = process.getInputStream();
+                    Streamer streamer = new Streamer(stream, System.out::println);
+                    Executors.newSingleThreadExecutor().submit(streamer);
                     int exitCode = process.waitFor();
                     assert exitCode == 0;
-                    return streamGobbler.toString();
+                    java.util.Scanner s = new java.util.Scanner(stream).useDelimiter("\\A");
+                    return s.hasNext() ? s.next() : "";
                 default:
                     return "Invalid Action: " + action;
             }
