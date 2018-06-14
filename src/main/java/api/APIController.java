@@ -49,10 +49,12 @@ public class APIController {
                     builder.directory(new File(System.getProperty("user.home")));
                     Process process = builder.start();
                     InputStream stream = process.getInputStream();
+                    /*
                     Streamer streamer = new Streamer(stream, System.out::println);
                     Executors.newSingleThreadExecutor().submit(streamer);
                     int exitCode = process.waitFor();
                     assert exitCode == 0;
+                    */
                     java.util.Scanner s = new java.util.Scanner(stream).useDelimiter("\\A");
                     return s.hasNext() ? s.next() : "";
                 default:
@@ -60,9 +62,14 @@ public class APIController {
             }
         } catch (JSONException e) {
             return "JSONException: " + e.getMessage();
-        } catch (InterruptedException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        /*
+        catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+        */
         return "";
     }
 }
