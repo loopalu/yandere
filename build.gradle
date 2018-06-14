@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'libra'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+task backupFatJar {
+    doLast {
+        copy {
+            from "build/libs"
+            into "backup/build_" + new Date().format('yyyy_MM_dd_HH_mm_ss').toString()
+        }
+    }
+}
+
+assemble.dependsOn backupFatJar
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile 'org.json:json:20170516'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
