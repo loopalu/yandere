@@ -2,6 +2,7 @@ package hello;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -45,7 +46,7 @@ public class GreetingController {
                     if (isWindows) {
                         builder.command("cmd.exe", "/c", "dir");
                     } else {
-                        builder.command("sh", "-c", "ls");
+                        builder.command("sh", "-c", "echo somepassword | sudo -S cat /var/log/syslog");
                     }
                     builder.directory(new File(System.getProperty("user.home")));
                     Process process = builder.start();
