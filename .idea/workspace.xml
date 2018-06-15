@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b1e47c-4546-4004-9049-fee389ac8014" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Greeting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/Greeting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/GreetingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/APIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/StreamGobbler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/Streamer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/APIController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -52,8 +48,8 @@
       <file leaf-file-name="APIController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/api/APIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="46" column="70" selection-start-line="46" selection-start-column="70" selection-end-line="46" selection-end-column="70" />
+            <state relative-caret-position="210">
+              <caret line="47" column="70" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
               <folding>
                 <element signature="e#568#569#0" expanded="true" />
                 <element signature="e#605#606#0" expanded="true" />
@@ -652,7 +648,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1528971053085</updated>
-      <workItem from="1528971054265" duration="9461000" />
+      <workItem from="1528971054265" duration="13193000" />
     </task>
     <task id="LOCAL-00001" summary="Possible to send sudo commands through REST api.">
       <created>1529000333336</created>
@@ -661,11 +657,25 @@
       <option name="project" value="LOCAL" />
       <updated>1529000333336</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="REST api returns Linux' syslog entries.&#10;&#10;Bugs: 1)API prints to console only x first lines.&#10;      2)API returns only last 186 lines.">
+      <created>1529010291026</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1529010291026</updated>
+    </task>
+    <task id="LOCAL-00003" summary="REST API returns now all syslog lines (bug fixed on output end).">
+      <created>1529012380792</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1529012380792</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9461000" />
+    <option name="totallyTimeSpent" value="13193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1030" extended-state="6" />
@@ -715,7 +725,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Possible to send sudo commands through REST api." />
-    <option name="LAST_COMMIT_MESSAGE" value="Possible to send sudo commands through REST api." />
+    <MESSAGE value="REST api returns Linux' syslog entries.&#10;&#10;Bugs: 1)API prints to console only x first lines.&#10;      2)API returns only last 186 lines." />
+    <MESSAGE value="REST API returns now all syslog lines (bug fixed on output end)." />
+    <option name="LAST_COMMIT_MESSAGE" value="REST API returns now all syslog lines (bug fixed on output end)." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/api/Application.java">
@@ -746,8 +758,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/api/APIController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="46" column="70" selection-start-line="46" selection-start-column="70" selection-end-line="46" selection-end-column="70" />
+        <state relative-caret-position="210">
+          <caret line="47" column="70" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
           <folding>
             <element signature="e#568#569#0" expanded="true" />
             <element signature="e#605#606#0" expanded="true" />

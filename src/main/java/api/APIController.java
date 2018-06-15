@@ -1,6 +1,7 @@
 package api;
 
 import java.io.*;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -55,8 +56,10 @@ public class APIController {
                     int exitCode = process.waitFor();
                     assert exitCode == 0;
                     */
-                    java.util.Scanner s = new java.util.Scanner(stream).useDelimiter("\\A");
-                    return s.hasNext() ? s.next() : "";
+                    Scanner scanner = new Scanner(stream).useDelimiter("\\A");
+                    String output = scanner.hasNext() ? scanner.next() : "";
+                    System.out.println(output);
+                    return output;
                 default:
                     return "Invalid Action: " + action;
             }
