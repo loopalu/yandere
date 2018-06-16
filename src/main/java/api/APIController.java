@@ -28,11 +28,17 @@ public class APIController {
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     public Object getHTTPBody(@RequestBody String request) {
-        JSONObject data;
-        String action;
+        JSONObject json;
+        String action, data;
+        ProcessBuilder builder;
+        Process process;
+        InputStream stream;
+        Scanner scanner;
+        String output;
         try {
-            data = new JSONObject(request);
-            action = data.getString("Action");
+            json = new JSONObject(request);
+            action = json.getString("Action");
+            data = json.getString("Data");
             System.out.println(action);
         } catch (JSONException e) {
             return "JSONException: " + e.getMessage();
@@ -40,24 +46,44 @@ public class APIController {
 
         try {
             switch (action) {
-                case "ls":
-                    ProcessBuilder builder = new ProcessBuilder();
+                case "sudoCommand":
+                    builder = new ProcessBuilder();
                     if (isWindows) {
                         builder.command("cmd.exe", "/c", "dir");
                     } else {
-                        builder.command("sh", "-c", "echo somePassword | sudo -S cat /var/log/syslog");
+                        builder.command("sh", "-c", "echo somePassword | sudo -S " + data);
                     }
                     builder.directory(new File(System.getProperty("user.home")));
-                    Process process = builder.start();
-                    InputStream stream = process.getInputStream();
+                    process = builder.start();
+                    stream = process.getInputStream();
                     /*
                     Streamer streamer = new Streamer(stream, System.out::println);
                     Executors.newSingleThreadExecutor().submit(streamer);
                     int exitCode = process.waitFor();
                     assert exitCode == 0;
                     */
-                    Scanner scanner = new Scanner(stream).useDelimiter("\\A");
-                    String output = scanner.hasNext() ? scanner.next() : "";
+                    scanner = new Scanner(stream).useDelimiter("\\A");
+                    output = scanner.hasNext() ? scanner.next() : "";
+                    System.out.println(output);
+                    return output;
+                case "normalCommand":
+                    builder = new ProcessBuilder();
+                    if (isWindows) {
+                        builder.command("cmd.exe", "/c", "dir");
+                    } else {
+                        builder.command("sh", "-c", data);
+                    }
+                    builder.directory(new File(System.getProperty("user.home")));
+                    process = builder.start();
+                    stream = process.getInputStream();
+                    /*
+                    Streamer streamer = new Streamer(stream, System.out::println);
+                    Executors.newSingleThreadExecutor().submit(streamer);
+                    int exitCode = process.waitFor();
+                    assert exitCode == 0;
+                    */
+                    scanner = new Scanner(stream).useDelimiter("\\A");
+                    output = scanner.hasNext() ? scanner.next() : "";
                     System.out.println(output);
                     return output;
                 default:
