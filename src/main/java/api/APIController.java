@@ -2,29 +2,20 @@ package api;
 
 import java.io.*;
 import java.util.Scanner;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
-
+import com.google.gson.Gson;
 import static com.sun.javafx.font.PrismFontFactory.isWindows;
 
 @RestController
 public class APIController {
-
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping(method = RequestMethod.GET)
     public String greeting() {
         return "No stalking!";
     }
 
-    /*
-    @RequestMapping(method = RequestMethod.POST, value = "/api")
-    */
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     public Object getHTTPBody(@RequestBody String request) {
@@ -39,29 +30,25 @@ public class APIController {
             json = new JSONObject(request);
             action = json.getString("Action");
             data = json.getString("Data");
-            System.out.println(action);
+            /* Just for testing purposes.
+            Gson gson = new Gson();
+            String jsonstring = gson.toJson(request);
+            */
         } catch (JSONException e) {
             return "JSONException: " + e.getMessage();
         }
-
         try {
             switch (action) {
                 case "sudoCommand":
                     builder = new ProcessBuilder();
                     if (isWindows) {
-                        builder.command("cmd.exe", "/c", "dir");
+                        builder.command("cmd.exe", "/c", data);
                     } else {
                         builder.command("sh", "-c", "echo somePassword | sudo -S " + data);
                     }
                     builder.directory(new File(System.getProperty("user.home")));
                     process = builder.start();
                     stream = process.getInputStream();
-                    /*
-                    Streamer streamer = new Streamer(stream, System.out::println);
-                    Executors.newSingleThreadExecutor().submit(streamer);
-                    int exitCode = process.waitFor();
-                    assert exitCode == 0;
-                    */
                     scanner = new Scanner(stream).useDelimiter("\\A");
                     output = scanner.hasNext() ? scanner.next() : "";
                     System.out.println(output);
@@ -69,24 +56,19 @@ public class APIController {
                 case "normalCommand":
                     builder = new ProcessBuilder();
                     if (isWindows) {
-                        builder.command("cmd.exe", "/c", "dir");
+                        builder.command("cmd.exe", "/c", data);
                     } else {
                         builder.command("sh", "-c", data);
                     }
                     builder.directory(new File(System.getProperty("user.home")));
                     process = builder.start();
                     stream = process.getInputStream();
-                    /*
-                    Streamer streamer = new Streamer(stream, System.out::println);
-                    Executors.newSingleThreadExecutor().submit(streamer);
-                    int exitCode = process.waitFor();
-                    assert exitCode == 0;
-                    */
                     scanner = new Scanner(stream).useDelimiter("\\A");
                     output = scanner.hasNext() ? scanner.next() : "";
                     System.out.println(output);
                     return output;
                 default:
+                    System.out.println("This is error");
                     return "Invalid Action: " + action;
             }
         } catch (JSONException e) {
@@ -94,11 +76,6 @@ public class APIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*
-        catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
-        */
         return "";
     }
 }
