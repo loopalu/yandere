@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import com.google.gson.Gson;
-import static com.sun.javafx.font.PrismFontFactory.isWindows;
 
 @RestController
 public class APIController {
@@ -41,11 +40,7 @@ public class APIController {
             switch (action) {
                 case "sudoCommand":
                     builder = new ProcessBuilder();
-                    if (isWindows) {
-                        builder.command("cmd.exe", "/c", data);
-                    } else {
-                        builder.command("sh", "-c", "echo somePassword | sudo -S " + data);
-                    }
+                    builder.command("sh", "-c", "echo somepassword | sudo -S " + data);
                     builder.directory(new File(System.getProperty("user.home")));
                     process = builder.start();
                     stream = process.getInputStream();
@@ -55,11 +50,7 @@ public class APIController {
                     return output;
                 case "normalCommand":
                     builder = new ProcessBuilder();
-                    if (isWindows) {
-                        builder.command("cmd.exe", "/c", data);
-                    } else {
-                        builder.command("sh", "-c", data);
-                    }
+                    builder.command("sh", "-c", data);
                     builder.directory(new File(System.getProperty("user.home")));
                     process = builder.start();
                     stream = process.getInputStream();
