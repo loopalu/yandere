@@ -38,16 +38,6 @@ public class APIController {
         }
         try {
             switch (action) {
-                case "sudoCommand":
-                    builder = new ProcessBuilder();
-                    builder.command("sh", "-c", "echo somepassword | sudo -S " + data);
-                    builder.directory(new File(System.getProperty("user.home")));
-                    process = builder.start();
-                    stream = process.getInputStream();
-                    scanner = new Scanner(stream).useDelimiter("\\A");
-                    output = scanner.hasNext() ? scanner.next() : "";
-                    System.out.println(output);
-                    return output;
                 case "normalCommand":
                     builder = new ProcessBuilder();
                     builder.command("sh", "-c", data);
