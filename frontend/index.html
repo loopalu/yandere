@@ -5,28 +5,28 @@
       <meta http-equiv="Content-Security-Policy"  content="connect-src * 'unsafe-inline';">
         <script src="wsclient.js"></script>
         <style>
-            table    { border: 2px solid black; }
+            table    { border: 2px solid black; width: 609px; }
             input    { width: 300px; }
             select   { width: 300px; }
-            textarea { width: 513px; border: 2px solid black; }
+            textarea { width: 600px; border: 2px solid black; }
             #btnConnect    { width: 100px; }
             #btnDisconnect { width: 100px; }
-            #btnSend       { width: 100px; }
+            #btnSend       { width: auto; }
         </style>
     </head>
     <body>
-        <h1>WebSocket Client</h1>
+        <h1>Yandere</h1>
        
         <!-- Send Message Table -->
         <table>
             <tr>
-                <td width="200px">Message</td>
+                <td width="200px">Command</td>
                 <td><input type="text" id="message"/></td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <input id="btnSend" type="button" value="Send Message" onclick="onSendClick()">
+                    <input id="btnSend" type="button" value="Send Command" onclick="onSendClick()">
                 </td>
             </tr>
         </table><br/>

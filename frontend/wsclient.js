@@ -1,17 +1,14 @@
 function onSendClick() {
+    document.getElementById("incomingMsgOutput").value = "";
     var message = document.getElementById("message").value;
-    (async () => {
-        const rawResponse = await fetch('http://34.216.129.111:8080', {
-          method: "POST",
+    const rawResponse = fetch('http://34.216.129.111:8080', {
+          method: 'post',
           headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({"Action": "normalCommand", "Data": message})
+          body: JSON.stringify({Action: "normalCommand", Data: message})
         }).then(function (response) {
-            console.log(response);
-        }
-            
-        );
-        
-      })();
+            response.text().then((s) =>
+            document.getElementById("incomingMsgOutput").value += s);
+        });  
 }
