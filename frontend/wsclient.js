@@ -1,7 +1,7 @@
 function onSendClick() {
     document.getElementById("incomingMsgOutput").value = "";
     var message = document.getElementById("message").value;
-    const rawResponse = fetch('http://34.216.129.111:8080', {
+    const rawResponse = fetch('http://serverip:8080', {
           method: 'post',
           headers: {
             'Content-Type': 'application/json'
